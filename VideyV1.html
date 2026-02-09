@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Player</title>
+
+<style>
+body{
+  margin:0;
+  background:#000;
+  font-family:Arial,Helvetica,sans-serif;
+}
+.wrapper{
+  max-width:480px;
+  margin:auto;
+  padding-top:15px;
+}
+video{
+  width:100%;
+  height:auto;
+  background:#000;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+  <video id="videoPlayer"
+    controls
+    preload="metadata"
+    playsinline
+    webkit-playsinline>
+    <source src="https://cdn.videy.co/pcJBfrRs1.mp4" type="video/mp4">
+  </video>
+</div>
+
+<!-- ========= POPUNDER ADSTERRA ========= -->
+<script src="https://rewindoutstanding.com/1c/da/b6/1cdab64906b0476a0cc0434a5c128282.js"></script>
+
+<!-- ========= SOCIAL BAR ADSTERRA ========= -->
+<script src="https://rewindoutstanding.com/ac/80/e4/ac80e481d58583e46121b894acb6e69f.js"></script>
+
+<!-- ========= CONTROL POP (AMAN & WORK) ========= -->
+<script>
+let popCount = 0;
+let lastPop = 0;
+const MAX_POP = 4;
+const DELAY = 4000;
+
+const video = document.getElementById("videoPlayer");
+
+// trigger pop saat user klik PLAY
+video.addEventListener("play", function(){
+  const now = Date.now();
+  if(popCount >= MAX_POP) return;
+  if(now - lastPop < DELAY) return;
+
+  popCount++;
+  lastPop = now;
+
+  window.open('about:blank','_blank');
+});
+
+// reset soft kalau user lama
+setTimeout(function(){
+  popCount = 0;
+}, 1200000);
+</script>
+
+<!-- ========= AUTO THUMBNAIL (VIDEY STYLE) ========= -->
+<script>
+const v = document.getElementById("videoPlayer");
+v.addEventListener("loadeddata", function(){
+  const c = document.createElement("canvas");
+  c.width = v.videoWidth;
+  c.height = v.videoHeight;
+  const x = c.getContext("2d");
+  x.drawImage(v,0,0,c.width,c.height);
+  v.setAttribute("poster", c.toDataURL("image/jpeg"));
+});
+</script>
+
+</body>
+</html>
